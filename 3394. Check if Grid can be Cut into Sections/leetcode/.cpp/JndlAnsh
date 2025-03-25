@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool countLines(vector<pair<int, int>>coordinates){
+        int overlap=0, lines=0;
+        for(int i=0; i<coordinates.size(); i++){
+            if(coordinates[i].second==0) overlap--;
+            else overlap++;
+            if(overlap==0) lines++;
+        }
+        if(lines>=3) 
+            return true;
+        return false;
+    }
+    bool checkValidCuts(int n, vector<vector<int>>& rectangles) {
+        vector<pair<int, int>>x,y;
+        for(auto rectangle:rectangles)
+        {
+            x.push_back({rectangle[0],1});//s=1;
+            x.push_back({rectangle[2],0});//e=0;
+            y.push_back({rectangle[1],1});
+            y.push_back({rectangle[3],0});
+        }
+        sort(begin(x), end(x));
+        sort(begin(y), end(y));
+
+        return countLines(y) or countLines(x);
+    }
+};
